@@ -1,7 +1,7 @@
-export interface question {
-    title: string,
-    type: string,
-    number: number,
-    required: boolean,
-    options?: Array<string>
-}
+export interface Question {
+    questionType: string;
+    questionName: string;
+    answerOptions?: string[];
+    allowOwnAnswer: boolean;
+    required: boolean;
+  }

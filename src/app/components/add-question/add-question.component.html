@@ -35,8 +35,8 @@
         <div class="actionsContainer">
             <mat-checkbox [(ngModel)]="allowOnwAnswer" *ngIf="selectedOption == 'checkboxList'"> Allow user to specify their own answer </mat-checkbox>
             <mat-checkbox [(ngModel)]="requiredQuestion"> This field is required </mat-checkbox>
-            <button mat-raised-button color="primary" *ngIf="selectedOption == 'checkboxList' "  [disabled]="(publicisRemoveButtonDisabled() || inputForm.invalid) || questionName ==''"> Submit </button>
-            <button mat-raised-button color="primary" *ngIf="selectedOption == 'paragraph' "  [disabled]="questionName ==''"> Submit </button>
+            <button mat-raised-button color="primary" *ngIf="selectedOption == 'checkboxList'"  [disabled]="(publicisRemoveButtonDisabled() || inputForm.invalid) || questionName ==''" (click)="saveQuestion()">Submit</button>
+            <button mat-raised-button color="primary" *ngIf="selectedOption == 'paragraph'" [disabled]="questionName ==''" (click)="saveQuestion()">Submit</button>
         </div>
     </mat-card-actions>
 </mat-card>

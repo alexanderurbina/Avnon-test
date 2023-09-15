@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { question } from './../../shared/interfaces/question.interface';
+import { Question } from './../../shared/interfaces/question.interface';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QuestionsService } from './../../services/questions.service';
 @Component({
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
@@ -9,14 +10,17 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 export class AddQuestionComponent implements OnInit {
   public selectedOption: string = 'paragraph';
   public questionName: string = '';
-  public questionsData: Array<question> = [];
+  public questionsData: Array<Question> = [];
   public inputForm: FormGroup;
   public maxInputs: number = 5;
   public minInputs: number = 1;
   public allowOnwAnswer: boolean = false;
   public requiredQuestion: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private questionsService:QuestionsService
+    ) {
     this.inputForm = this.fb.group({
       inputArray: this.fb.array([this.createInputControl()]),
     });
@@ -47,6 +51,36 @@ export class AddQuestionComponent implements OnInit {
 
   public publicisRemoveButtonDisabled(): boolean {
     return this.inputArray.length <= this.minInputs;
+  }
+
+  public saveQuestion(): void {
+    const questionType = this.selectedOption;
+    const questionName = this.questionName;
+    const answerOptions = this.inputArray.value.filter((option: string) => option.trim() !== '');
+    const allowOwnAnswer = this.allowOnwAnswer;
+    const required = this.requiredQuestion;
+
+    const newQuestion: Question = {
+      questionType,
+      questionName,
+      answerOptions,
+      allowOwnAnswer,
+      required,
+    };
+
+    this.questionsData.push(newQuestion);
+    console.log(this.questionsData)
+    this.questionsService.addQuestion(newQuestion);
+    this.resetForm();
+  }
+
+  public resetForm(): void {
+    this.selectedOption = 'paragraph';
+    this.questionName = '';
+    this.inputArray.clear();
+    this.inputArray.push(this.createInputControl());
+    this.allowOnwAnswer = false;
+    this.requiredQuestion = false;
   }
 
 }
