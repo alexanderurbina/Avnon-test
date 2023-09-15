@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './pages/form/form.component';
-import { AnwersComponent } from './pages/anwers/anwers.component';
+import { AnswersComponent } from './pages/anwers/answers.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/modules/material.module';
 import { AddQuestionComponent } from './components/add-question/add-question.component';
@@ -13,7 +13,7 @@ import { AddQuestionComponent } from './components/add-question/add-question.com
   declarations: [
     AppComponent,
     FormComponent,
-    AnwersComponent,
+    AnswersComponent,
     AddQuestionComponent
   ],
   imports: [

@@ -5,10 +5,10 @@
         </mat-card-title>
         <mat-card-content>
             <div class="questionsContainer">
-                <ng-container *ngIf="formData.length != 0">
-                    <ng-container *ngFor="let item of formData; let i = index">
+                <ng-container *ngIf="formItems.length != 0">
+                    <ng-container *ngFor="let item of formItems; let i = index">
                         <!-- paragraph -->
-                        <h3> <b>{{i + 1}}</b> {{item.questionName}}</h3>
+                        <h3> <b>{{i + 1}} )</b> {{item.questionName}}</h3>
                         <mat-card class="paragraph" *ngIf="item.questionType == 'paragraph'">
                             <mat-form-field>
                                 <mat-label>Type your answer here</mat-label>
@@ -32,12 +32,12 @@
                         </mat-card>
                     </ng-container>
                 </ng-container>
-                <span *ngIf="formData.length == 0"> There is not any question yet</span>
+                <span *ngIf="formItems.length == 0"> There is not any question yet</span>
                 <button mat-raised-button color="primary" (click)="openDialog()">Add New Question</button>
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="toAnswers()">Review My answers</button>
+            <button mat-raised-button color="primary" [disabled]="formItems.length == 0" (click)="toAnswers()">Review My answers</button>
         </mat-card-actions>
     </mat-card>
 </div>

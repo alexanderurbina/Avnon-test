@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class FormComponent implements OnInit {
 
-  public formData: Array<Question> = [];
+  public formItems: Array<Question> = [];
 
   constructor
   (
@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionsService.questions$.subscribe( data => {
-      this.formData = data;
+      this.formItems = data;
     } )
   }
 
