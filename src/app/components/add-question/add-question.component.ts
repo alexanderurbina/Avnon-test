@@ -49,9 +49,4 @@ export class AddQuestionComponent implements OnInit {
     return this.inputArray.length <= this.minInputs;
   }
 
-  public validForm(): boolean {
-
-    return false;
-  }
-
 }

@@ -14,16 +14,6 @@
           <mat-form-field>
             <input matInput [(ngModel)]="questionName" placeholder="Type question here" />
           </mat-form-field>
-        <div *ngIf="selectedOption == 'paragraph'">
-            <mat-form-field>
-                <mat-label>Autosize textarea</mat-label>
-                <textarea matInput
-                          cdkTextareaAutosize
-                          #autosize="cdkTextareaAutosize"
-                          cdkAutosizeMinRows="1"
-                          cdkAutosizeMaxRows="5"></textarea>
-            </mat-form-field>
-        </div>
         <div *ngIf="selectedOption == 'checkboxList'">
             <form [formGroup]="inputForm">
                 <div formArrayName="inputArray">
@@ -43,15 +33,10 @@
     </mat-card-content>
     <mat-card-actions>
         <div class="actionsContainer">
-            <mat-checkbox [(ngModel)]="allowOnwAnswer"> Allow user to specify their own answer </mat-checkbox>
+            <mat-checkbox [(ngModel)]="allowOnwAnswer" *ngIf="selectedOption == 'checkboxList'"> Allow user to specify their own answer </mat-checkbox>
             <mat-checkbox [(ngModel)]="requiredQuestion"> This field is required </mat-checkbox>
-            <button mat-raised-button color="primary"
-                [disabled]="
-                (publicisRemoveButtonDisabled() || inputForm.invalid) 
-                && selectedOption == 'paragraph' 
-                || questionName == ''">
-                Submit
-            </button>
+            <button mat-raised-button color="primary" *ngIf="selectedOption == 'checkboxList' "  [disabled]="(publicisRemoveButtonDisabled() || inputForm.invalid) || questionName ==''"> Submit </button>
+            <button mat-raised-button color="primary" *ngIf="selectedOption == 'paragraph' "  [disabled]="questionName ==''"> Submit </button>
         </div>
     </mat-card-actions>
 </mat-card>
