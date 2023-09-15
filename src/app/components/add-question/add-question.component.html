@@ -1,13 +1,58 @@
 <div class="mainQuestionContainer">
 <mat-card>
     <mat-card-title>
-        <h3>Add Question</h3>
+        <h1>Add a New Questions</h1>
     </mat-card-title>
     <mat-card-content>
-        <span>content</span>
+        <mat-form-field>
+            <mat-label>Question Type</mat-label>
+            <mat-select [(ngModel)]="selectedOption" name="questionType">
+              <mat-option value="paragraph">Paragraph</mat-option>
+              <mat-option value="checkboxList">Checkbox List</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="questionName" placeholder="Type question here" />
+          </mat-form-field>
+        <div *ngIf="selectedOption == 'paragraph'">
+            <mat-form-field>
+                <mat-label>Autosize textarea</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+        </div>
+        <div *ngIf="selectedOption == 'checkboxList'">
+            <form [formGroup]="inputForm">
+                <div formArrayName="inputArray">
+                  <div *ngFor="let inputControl of inputArray.controls; let i = index">
+                    <mat-form-field>
+                      <input matInput [formControlName]="i" placeholder="Add Answer Option" />
+                    </mat-form-field>
+                    <button mat-button color="warn" (click)="removeInput(i)">Eliminar</button>
+                  </div>
+                </div>
+                <div class="addButton">
+                  <button mat-button color="primary" type="button" (click)="addInput()" [disabled]="isAddButtonDisabled()">+ Add another answer</button>
+                </div>
+              </form>
+        </div>
+
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="primary"> Add Question</button>
+        <div class="actionsContainer">
+            <mat-checkbox [(ngModel)]="allowOnwAnswer"> Allow user to specify their own answer </mat-checkbox>
+            <mat-checkbox [(ngModel)]="requiredQuestion"> This field is required </mat-checkbox>
+            <button mat-raised-button color="primary"
+                [disabled]="
+                (publicisRemoveButtonDisabled() || inputForm.invalid) 
+                && selectedOption == 'paragraph' 
+                || questionName == ''">
+                Submit
+            </button>
+        </div>
     </mat-card-actions>
 </mat-card>
 </div>

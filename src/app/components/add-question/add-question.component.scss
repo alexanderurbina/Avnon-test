@@ -1,0 +1,19 @@
+.optionsContainer{
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.actionsContainer {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.addButton {
+    button {
+        padding-left: 0;
+    }
+    margin-top: 20px;
+}

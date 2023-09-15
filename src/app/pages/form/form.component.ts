@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(AddQuestionComponent, {
-      width: '250px',
+      width: '350px',
       data: {},
     });
 

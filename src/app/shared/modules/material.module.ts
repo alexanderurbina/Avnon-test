@@ -14,7 +14,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {TextFieldModule} from '@angular/cdk/text-field';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatDividerModule } from '@angular/material/divider';
+
+
 
 @NgModule({
   declarations: [],
@@ -32,7 +36,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatInputModule,
     MatRadioModule,
     TextFieldModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatDividerModule
   ],
   exports: [
     MatToolbarModule,
@@ -48,7 +55,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatInputModule,
     MatRadioModule,
     TextFieldModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }
