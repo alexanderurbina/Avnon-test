@@ -4,4 +4,5 @@ export interface Question {
     answerOptions?: string[];
     allowOwnAnswer: boolean;
     required: boolean;
+    answer?: string;
   }

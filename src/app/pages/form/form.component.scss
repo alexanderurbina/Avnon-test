@@ -2,3 +2,10 @@
     width: 60%;
     margin: auto;
 }
+
+.questionsContainer, 
+.checkBoxContainer  {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}

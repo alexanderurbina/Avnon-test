@@ -4,10 +4,40 @@
             <h1>Form builder</h1>
         </mat-card-title>
         <mat-card-content>
-            <span>content</span>
+            <div class="questionsContainer">
+                <ng-container *ngIf="formData.length != 0">
+                    <ng-container *ngFor="let item of formData; let i = index">
+                        <!-- paragraph -->
+                        <h3> <b>{{i + 1}}</b> {{item.questionName}}</h3>
+                        <mat-card class="paragraph" *ngIf="item.questionType == 'paragraph'">
+                            <mat-form-field>
+                                <mat-label>Type your answer here</mat-label>
+                                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                            </mat-form-field>
+                        </mat-card>
+                        <!-- checkboxList -->
+                        <mat-card class="checkboxList" *ngIf="item.questionType == 'checkboxList'" class="checkBoxContainer">
+                            <ng-container *ngFor="let option of item.answerOptions;" >
+                                <mat-checkbox>{{option}}</mat-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="item.allowOwnAnswer">
+                                <mat-checkbox #checkbox>Other</mat-checkbox>
+                                <mat-form-field *ngIf="checkbox.checked">
+                                    <mat-label>Type your answer here</mat-label>
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                                </mat-form-field>
+                            </ng-container>
+                        </mat-card>
+                    </ng-container>
+                </ng-container>
+                <span *ngIf="formData.length == 0"> There is not any question yet</span>
+                <button mat-raised-button color="primary" (click)="openDialog()">Add New Question</button>
+            </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="openDialog()">Add Question</button>
+            <button mat-raised-button color="primary" (click)="toAnswers()">Review My answers</button>
         </mat-card-actions>
     </mat-card>
 </div>
