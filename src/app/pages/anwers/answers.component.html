@@ -1,8 +1,18 @@
 <div class="mainAnswersContainer">
     <mat-card class="answerCard">
         <mat-card-content>
-            <h2>question title</h2>
-            <span>answer</span>
+            <ng-container *ngFor="let item of answersToDisplay;">
+                <ng-container *ngIf="item.questionType == 'paragraph'">
+                    <h2>{{item.questionName}}</h2>
+                    <span>{{item.answer}}</span>
+                </ng-container>
+                <ng-container *ngIf="item.questionType == 'checkboxList'">
+                    <h2>{{item.questionName}}</h2>
+                    <ul>
+                        <li *ngFor="let option of item ">{{option.answer}}</li>
+                    </ul>
+                </ng-container>
+            </ng-container>
         </mat-card-content>
         <mat-card-actions>
             <button mat-button color="primary" (click)="backToForm()">Back to Form Builder</button>

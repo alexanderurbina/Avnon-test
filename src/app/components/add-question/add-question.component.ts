@@ -59,6 +59,7 @@ export class AddQuestionComponent implements OnInit {
     const answerOptions = this.inputArray.value.filter((option: string) => option.trim() !== '');
     const allowOwnAnswer = this.allowOnwAnswer;
     const required = this.requiredQuestion;
+    const answer = '';
 
     const newQuestion: Question = {
       questionType,
@@ -66,6 +67,7 @@ export class AddQuestionComponent implements OnInit {
       answerOptions,
       allowOwnAnswer,
       required,
+      answer
     };
 
     this.questionsData.push(newQuestion);

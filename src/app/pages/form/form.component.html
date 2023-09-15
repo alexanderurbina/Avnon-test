@@ -13,7 +13,8 @@
                             <mat-form-field>
                                 <mat-label>Type your answer here</mat-label>
                                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                                    [(ngModel)]="item.answer"></textarea>
                             </mat-form-field>
                         </mat-card>
                         <!-- checkboxList -->

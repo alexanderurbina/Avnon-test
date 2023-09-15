@@ -38,6 +38,8 @@ export class FormComponent implements OnInit {
   }
 
   public toAnswers(): void {
+    this.questionsService.saveAsnwer(this.formItems)
+    console.log(this.formItems)
     this.router.navigate(['form/answers']);
   }
 

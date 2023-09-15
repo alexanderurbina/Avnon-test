@@ -9,11 +9,18 @@ export class QuestionsService {
   private questionsSubject = new BehaviorSubject<Question[]>([]);
   questions$ = this.questionsSubject.asObservable();
 
+  private answerSubject = new BehaviorSubject<any>({});
+  answer$ = this.answerSubject.asObservable();
+
   constructor() { }
 
   addQuestion(question: Question) {
     const currentQuestions = this.questionsSubject.value;
     currentQuestions.push(question);
     this.questionsSubject.next(currentQuestions);
+  }
+
+  saveAsnwer(data: any) {
+    this.questionsSubject.next(data);
   }
 }
