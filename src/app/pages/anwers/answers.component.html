@@ -9,8 +9,11 @@
                 <ng-container *ngIf="item.questionType == 'checkboxList'">
                     <h2>{{item.questionName}}</h2>
                     <ul>
-                        <li *ngFor="let option of item ">{{option.answer}}</li>
+                        <ng-container *ngFor="let option of item.answerOptions ">
+                            <li *ngIf="option.isSelected">{{option.value}}</li>
+                        </ng-container>
                     </ul>
+                    <span *ngIf="item.answer != ''"> Other - {{item.answer}}</span>
                 </ng-container>
             </ng-container>
         </mat-card-content>

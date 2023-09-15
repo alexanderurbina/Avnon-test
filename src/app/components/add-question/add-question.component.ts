@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Question } from './../../shared/interfaces/question.interface';
+import { Question, checkBoxItem } from './../../shared/interfaces/question.interface';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuestionsService } from './../../services/questions.service';
 @Component({
@@ -55,25 +55,33 @@ export class AddQuestionComponent implements OnInit {
 
   public saveQuestion(): void {
     const questionType = this.selectedOption;
-    const questionName = this.questionName;
-    const answerOptions = this.inputArray.value.filter((option: string) => option.trim() !== '');
+    const questionName = this.questionName.trim();
+    const answerOptions: checkBoxItem[] = this.inputArray.value
+      .filter((option: string) => option.trim() !== '')
+      .map((option: string) => ({ isSelected: false, value: option.trim() }));
     const allowOwnAnswer = this.allowOnwAnswer;
     const required = this.requiredQuestion;
     const answer = '';
 
-    const newQuestion: Question = {
-      questionType,
-      questionName,
-      answerOptions,
-      allowOwnAnswer,
-      required,
-      answer
-    };
+    if (
+      (questionType === 'checkboxList' && answerOptions.length >= 2 && questionName !== '') ||
+      (questionType === 'paragraph' && questionName !== '')
+    ) {
+      const newQuestion: Question = {
+        questionType,
+        questionName,
+        answerOptions,
+        allowOwnAnswer,
+        required,
+        answer
+      };
 
-    this.questionsData.push(newQuestion);
-    console.log(this.questionsData)
-    this.questionsService.addQuestion(newQuestion);
-    this.resetForm();
+      this.questionsData.push(newQuestion);
+      this.questionsService.addQuestion(newQuestion);
+      this.resetForm();
+    } else {
+      // Realiza alguna acción aquí, como mostrar un mensaje de error
+    }
   }
 
   public resetForm(): void {

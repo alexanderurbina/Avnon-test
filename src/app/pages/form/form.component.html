@@ -20,14 +20,14 @@
                         <!-- checkboxList -->
                         <mat-card class="checkboxList" *ngIf="item.questionType == 'checkboxList'" class="checkBoxContainer">
                             <ng-container *ngFor="let option of item.answerOptions;" >
-                                <mat-checkbox>{{option}}</mat-checkbox>
+                                <mat-checkbox  [(ngModel)]="option.isSelected">{{option.value}}</mat-checkbox>
                             </ng-container>
                             <ng-container *ngIf="item.allowOwnAnswer">
                                 <mat-checkbox #checkbox>Other</mat-checkbox>
                                 <mat-form-field *ngIf="checkbox.checked">
                                     <mat-label>Type your answer here</mat-label>
                                     <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [(ngModel)]="item.answer"></textarea>
                                 </mat-form-field>
                             </ng-container>
                         </mat-card>
