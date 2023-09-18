@@ -5,9 +5,11 @@
         </mat-card-title>
         <mat-card-content>
             <div class="questionsContainer">
-                <ng-container *ngIf="formItems.length != 0">
+                <ng-container>
+                    <!-- 
+
                     <ng-container *ngFor="let item of formItems; let i = index">
-                        <!-- paragraph -->
+
                         <h3> <b>{{i + 1}} )</b> {{item.questionName}}</h3>
                         <mat-card class="paragraph" *ngIf="item.questionType == 'paragraph'">
                             <mat-form-field>
@@ -17,7 +19,8 @@
                                     [(ngModel)]="item.answer"></textarea>
                             </mat-form-field>
                         </mat-card>
-                        <!-- checkboxList -->
+
+
                         <mat-card class="checkboxList" *ngIf="item.questionType == 'checkboxList'" class="checkBoxContainer">
                             <ng-container *ngFor="let option of item.answerOptions;" >
                                 <mat-checkbox  [(ngModel)]="option.isSelected">{{option.value}}</mat-checkbox>
@@ -32,13 +35,30 @@
                             </ng-container>
                         </mat-card>
                     </ng-container>
+                
+                -->
+
+                <form [formGroup]="inputForm">
+                    <div formArrayName="inputArray">
+                      <div *ngFor="let inputControl of inputArray.controls; let i = index">
+                        <h3> <b>{{i + 1}} )</b> {{formItems[i].question.questionName}}</h3>
+                        <mat-form-field>
+                            <mat-label>Type your answer here</mat-label>
+                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                                [formControlName]="i"></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </form>
+
                 </ng-container>
                 <span *ngIf="formItems.length == 0"> There is not any question yet</span>
                 <button mat-raised-button color="primary" (click)="openDialog()">Add New Question</button>
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" [disabled]="formItems.length == 0" (click)="toAnswers()">Review My answers</button>
+            <button mat-raised-button color="primary" [disabled]="formItems.length == 0 || inputForm.invalid" (click)="toAnswers()">Review My answers</button>
         </mat-card-actions>
     </mat-card>
 </div>

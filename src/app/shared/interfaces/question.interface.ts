@@ -7,6 +7,11 @@ export interface Question {
   answer: any;
 }
 
+export interface createdQuestion {
+  question: Question,
+  control: any
+}
+
 export interface checkBoxItem {
   isSelected: boolean,
   value: string
