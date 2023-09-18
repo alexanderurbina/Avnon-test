@@ -1,10 +1,12 @@
 export interface Question {
   questionType: string;
   questionName: string;
-  answerOptions?: checkBoxItem[];
+  answerOptions: checkBoxItem[];
   allowOwnAnswer: boolean;
   required: boolean;
   answer: any;
+  otherAnswer: any;
+  isOtherSelected: boolean;
 }
 
 export interface createdQuestion {

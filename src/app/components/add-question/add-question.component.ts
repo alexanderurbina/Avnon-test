@@ -62,6 +62,8 @@ export class AddQuestionComponent implements OnInit {
     const allowOwnAnswer = this.allowOnwAnswer;
     const required = this.requiredQuestion;
     const answer = '';
+    const otherAnswer = '';
+    const isOtherSelected = false;
 
     if (
       (questionType === 'checkboxList' && answerOptions.length >= 2 && questionName !== '') ||
@@ -73,14 +75,14 @@ export class AddQuestionComponent implements OnInit {
         answerOptions,
         allowOwnAnswer,
         required,
-        answer
+        answer,
+        otherAnswer,
+        isOtherSelected
       };
 
       this.questionsData.push(newQuestion);
       this.questionsService.addQuestion(newQuestion);
       this.resetForm();
-    } else {
-      // Realiza alguna acción aquí, como mostrar un mensaje de error
     }
   }
 

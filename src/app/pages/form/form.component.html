@@ -38,19 +38,41 @@
                 
                 -->
 
-                <form [formGroup]="inputForm">
-                    <div formArrayName="inputArray">
-                      <div *ngFor="let inputControl of inputArray.controls; let i = index">
-                        <h3> <b>{{i + 1}} )</b> {{formItems[i].question.questionName}}</h3>
-                        <mat-form-field>
-                            <mat-label>Type your answer here</mat-label>
-                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
-                                [formControlName]="i"></textarea>
-                        </mat-form-field>
-                      </div>
+                    <form [formGroup]="inputForm">
+                        <div formArrayName="inputArray">
+                            <div *ngFor="let inputControl of inputArray.controls; let i = index">
+                                <mat-card *ngIf="formItems[i].question.questionType == 'paragraph'">
+                                    <h3> <b>{{i + 1}} )</b> {{formItems[i].question.questionName}}</h3>
+                                    <mat-form-field>
+                                        <mat-label>Type your answer here</mat-label>
+                                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                                            [formControlName]="i"></textarea>
+                                    </mat-form-field>
+                                </mat-card>
+                                <input *ngIf="formItems[i].question.questionType == 'checkboxList'" type="hidden" [formControlName]="i">
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <div *ngFor="let inputControl of inputArray.controls; let i = index">
+                        <mat-card *ngIf="formItems[i].question.questionType == 'checkboxList'"  class="checkBoxContainer">
+                            <h3> <b>{{i + 1}} )</b> {{formItems[i].question.questionName}}</h3>
+                            <ng-container *ngFor="let option of formItems[i].question.answerOptions;" >
+                                <mat-checkbox [(ngModel)]="option.isSelected" #checkbox (change)="checkboxChanges(i)">{{option.value}}</mat-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="formItems[i].question.allowOwnAnswer">
+                                <mat-checkbox #checkbox [(ngModel)]="formItems[i].question.isOtherSelected">Other</mat-checkbox>
+                                <mat-form-field *ngIf="checkbox.checked">
+                                    <mat-label>Type your answer here</mat-label>
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [(ngModel)]="formItems[i].question.otherAnswer"></textarea>
+                                </mat-form-field>
+                            </ng-container>
+                        </mat-card>
                     </div>
-                  </form>
+                   
 
                 </ng-container>
                 <span *ngIf="formItems.length == 0"> There is not any question yet</span>
@@ -58,7 +80,8 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" [disabled]="formItems.length == 0 || inputForm.invalid" (click)="toAnswers()">Review My answers</button>
+            <button mat-raised-button color="primary" [disabled]="formItems.length == 0 || inputForm.invalid"
+                (click)="toAnswers()">Review My answers</button>
         </mat-card-actions>
     </mat-card>
 </div>

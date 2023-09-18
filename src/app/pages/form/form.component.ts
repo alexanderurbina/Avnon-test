@@ -29,6 +29,7 @@ export class FormComponent implements OnInit {
     this.questionsService.questions$.subscribe( data => {
       this.inputArray.clear();
       this.formItems = [];
+      console.log(data)
       data.forEach(element => {
         const control = this.createInputControl(element)
         let item: createdQuestion = {
@@ -78,4 +79,18 @@ export class FormComponent implements OnInit {
     }
   }
 
+  public checkboxChanges(index: number): void {
+    console.log(this.formItems);
+    if(this.formItems[index].question.answerOptions.some(option => option.isSelected === true)) {
+      const selectedValues = this.formItems[index].question.answerOptions
+      .filter(option => option.isSelected === true)
+      .map(option => option.value);
+      selectedValues.join(', ');
+      this.inputArray.controls[index].setValue(selectedValues); 
+    } else {
+      this.inputArray.controls[index].setValue(''); 
+    }
+    console.log(this.inputForm.controls)
+  }
+  
 }
