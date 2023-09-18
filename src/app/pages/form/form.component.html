@@ -60,14 +60,14 @@
                         <mat-card *ngIf="formItems[i].question.questionType == 'checkboxList'"  class="checkBoxContainer">
                             <h3> <b>{{i + 1}} )</b> {{formItems[i].question.questionName}}</h3>
                             <ng-container *ngFor="let option of formItems[i].question.answerOptions;" >
-                                <mat-checkbox [(ngModel)]="option.isSelected" #checkbox (change)="checkboxChanges(i)">{{option.value}}</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="option.isSelected" (change)="checkboxChanges(i)">{{option.value}}</mat-checkbox>
                             </ng-container>
                             <ng-container *ngIf="formItems[i].question.allowOwnAnswer">
-                                <mat-checkbox #checkbox [(ngModel)]="formItems[i].question.isOtherSelected">Other</mat-checkbox>
-                                <mat-form-field *ngIf="checkbox.checked">
+                                <mat-checkbox #checkboxOther [(ngModel)]="formItems[i].question.isOtherSelected" (change)="checkboxChanges(i, checkboxOther.checked)">Other</mat-checkbox>
+                                <mat-form-field *ngIf="checkboxOther.checked">
                                     <mat-label>Type your answer here</mat-label>
                                     <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [(ngModel)]="formItems[i].question.otherAnswer"></textarea>
+                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [(ngModel)]="formItems[i].question.otherAnswer" (ngModelChange)="checkboxChanges(i, true)"></textarea>
                                 </mat-form-field>
                             </ng-container>
                         </mat-card>

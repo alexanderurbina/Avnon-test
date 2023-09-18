@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
     }
   }
 
-  public checkboxChanges(index: number): void {
+  public checkboxChanges(index: number, other?: boolean): void {
     console.log(this.formItems);
     if(this.formItems[index].question.answerOptions.some(option => option.isSelected === true)) {
       const selectedValues = this.formItems[index].question.answerOptions
@@ -87,7 +87,10 @@ export class FormComponent implements OnInit {
       .map(option => option.value);
       selectedValues.join(', ');
       this.inputArray.controls[index].setValue(selectedValues); 
-    } else {
+    } else if(other) {
+      this.inputArray.controls[index].setValue(this.formItems[index].question.otherAnswer);
+    }
+    else if(!this.formItems[index].question.isOtherSelected){
       this.inputArray.controls[index].setValue(''); 
     }
     console.log(this.inputForm.controls)
