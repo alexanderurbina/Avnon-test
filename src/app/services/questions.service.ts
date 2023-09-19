@@ -14,13 +14,19 @@ export class QuestionsService {
 
   constructor() { }
 
-  addQuestion(question: Question) {
+  addQuestion(question: Question): void  {
     const currentQuestions = this.questionsSubject.value;
     currentQuestions.push(question);
     this.questionsSubject.next(currentQuestions);
   }
 
-  saveAsnwer(data: any) {
-    this.questionsSubject.next(data);
+  saveAsnwer(data: any): void  {
+    console.log(data)
+    this.answerSubject.next(data);
+  }
+
+  clearData(): void {
+    this.questionsSubject.next([]);
+    this.answerSubject.next({});
   }
 }
